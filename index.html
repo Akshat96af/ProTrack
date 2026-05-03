@@ -578,17 +578,41 @@
             </div>
             <div>
               <label class="block text-sm font-medium mb-1.5 text-muted">Sport *</label>
-              <input type="text" id="player-sport" required class="form-input" placeholder="e.g. Boxing">
+              <select id="player-sport" required class="form-input">
+                <option value="">Select Sport...</option>
+                <option value="Archery">Archery</option>
+                <option value="Athletics">Athletics</option>
+                <option value="Badminton">Badminton</option>
+                <option value="Boxing">Boxing</option>
+                <option value="Cricket">Cricket</option>
+                <option value="Cycling">Cycling</option>
+                <option value="Football">Football</option>
+                <option value="Hockey">Hockey</option>
+                <option value="Kabaddi">Kabaddi</option>
+                <option value="Shooting">Shooting</option>
+                <option value="Swimming">Swimming</option>
+                <option value="Table Tennis">Table Tennis</option>
+                <option value="Tennis">Tennis</option>
+                <option value="Volleyball">Volleyball</option>
+                <option value="Wrestling">Wrestling</option>
+                <option value="Custom">Custom (Add New)...</option>
+              </select>
+              <input type="text" id="player-sport-custom" class="form-input mt-2 hidden"
+                placeholder="Enter custom sport">
             </div>
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium mb-1.5 text-muted">State *</label>
-              <input type="text" id="player-state" required class="form-input" placeholder="e.g. Haryana">
+              <select id="player-state" required class="form-input">
+                <option value="">Select State...</option>
+              </select>
             </div>
             <div>
               <label class="block text-sm font-medium mb-1.5 text-muted">District *</label>
-              <input type="text" id="player-district" required class="form-input" placeholder="e.g. Hisar">
+              <select id="player-district" required class="form-input" disabled>
+                <option value="">Select State First...</option>
+              </select>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-4">
@@ -626,12 +650,164 @@
     </div>
   </div>
 
+  <!-- Edit Player Modal -->
+  <div id="edit-modal" class="fixed inset-0 z-[60] flex items-center justify-center hidden" role="dialog"
+    aria-modal="true">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity opacity-0" id="edit-backdrop"></div>
+    <div
+      class="bg-surface border border-border rounded-xl shadow-xl w-full max-w-lg m-4 relative z-10 transform scale-95 opacity-0 transition-all duration-150"
+      id="edit-content">
+      <div class="p-6 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="font-display text-xl font-bold flex items-center gap-2">
+            <i data-lucide="edit" class="w-5 h-5 text-accent"></i> Edit Athlete Profile
+          </h2>
+          <button id="close-edit-modal"
+            class="text-muted hover:text-text rounded-md p-1 hover:bg-surface-2 transition-colors">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <form id="edit-form" class="space-y-4">
+          <input type="hidden" id="edit-id">
+
+          <div class="flex items-center gap-4 mb-2 p-3 bg-surface-2 rounded-lg border border-divider">
+            <div class="flex-1">
+              <label class="block text-sm font-medium mb-1 text-muted">Verification Status</label>
+              <div class="flex items-center gap-2">
+                <input type="checkbox" id="edit-verified"
+                  class="w-4 h-4 text-accent bg-surface-3 border-border rounded focus:ring-accent focus:ring-2">
+                <label for="edit-verified" class="text-sm text-text font-medium">Officially Verified Athlete</label>
+              </div>
+            </div>
+            <button type="button" id="btn-delete-athlete"
+              class="px-3 py-1.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 rounded-md text-xs font-bold transition-colors flex items-center gap-1.5">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-1.5 text-muted">Full Name *</label>
+              <input type="text" id="edit-name" required class="form-input">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5 text-muted">Sport *</label>
+              <select id="edit-sport" required class="form-input">
+                <option value="">Select Sport...</option>
+                <option value="Archery">Archery</option>
+                <option value="Athletics">Athletics</option>
+                <option value="Badminton">Badminton</option>
+                <option value="Boxing">Boxing</option>
+                <option value="Cricket">Cricket</option>
+                <option value="Cycling">Cycling</option>
+                <option value="Football">Football</option>
+                <option value="Hockey">Hockey</option>
+                <option value="Kabaddi">Kabaddi</option>
+                <option value="Shooting">Shooting</option>
+                <option value="Swimming">Swimming</option>
+                <option value="Table Tennis">Table Tennis</option>
+                <option value="Tennis">Tennis</option>
+                <option value="Volleyball">Volleyball</option>
+                <option value="Wrestling">Wrestling</option>
+                <option value="Custom">Custom (Add New)...</option>
+              </select>
+              <input type="text" id="edit-sport-custom" class="form-input mt-2 hidden" placeholder="Enter custom sport">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-1.5 text-muted">State *</label>
+              <select id="edit-state" required class="form-input">
+                <option value="">Select State...</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5 text-muted">District *</label>
+              <select id="edit-district" required class="form-input">
+                <option value="">Select State First...</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-1.5 text-muted">Age Category *</label>
+              <select id="edit-age" required class="form-input">
+                <option value="U-14">U-14</option>
+                <option value="U-17">U-17</option>
+                <option value="U-19">U-19</option>
+                <option value="Senior">Senior</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1.5 text-muted">Gender *</label>
+              <select id="edit-gender" required class="form-input">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1.5 text-muted">Coach Name</label>
+            <input type="text" id="edit-coach" class="form-input">
+          </div>
+          <div class="flex gap-3 pt-4 border-t border-divider mt-2">
+            <button type="button" id="cancel-edit-modal"
+              class="flex-1 bg-transparent hover:bg-surface-3 border border-border py-2.5 rounded-md font-medium transition-colors text-text">Cancel</button>
+            <button type="submit"
+              class="flex-1 bg-accent hover:bg-accent-hover text-black py-2.5 rounded-md font-medium transition-colors shadow-sm">Save
+              Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Container -->
   <div id="toast-container" class="fixed bottom-24 right-6 z-50 flex flex-col gap-2 w-72 md:w-80 pointer-events-none">
   </div>
 
   <script>
     // === DATA ===
+    const STATE_DISTRICTS = {
+      "Andaman and Nicobar Islands": ["Nicobar", "North and Middle Andaman", "South Andaman"],
+      "Andhra Pradesh": ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna", "Kurnool", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari", "YSR Kadapa"],
+      "Arunachal Pradesh": ["Tawang", "West Kameng", "East Kameng", "Papum Pare", "Kurung Kumey", "Kra Daadi", "Lower Subansiri", "Upper Subansiri", "West Siang", "East Siang", "Siang", "Upper Siang", "Lower Siang", "Lower Dibang Valley", "Dibang Valley", "Anjaw", "Lohit", "Namsai", "Changlang", "Tirap", "Longding"],
+      "Assam": ["Baksa", "Barpeta", "Biswanath", "Bongaigaon", "Cachar", "Charaideo", "Chirang", "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Goalpara", "Golaghat", "Hailakandi", "Hojai", "Jorhat", "Kamrup Metropolitan", "Kamrup", "Karbi Anglong", "Karimganj", "Kokrajhar", "Lakhimpur", "Majuli", "Morigaon", "Nagaon", "Nalbari", "Dima Hasao", "Sivasagar", "Sonitpur", "South Salmara-Mankachar", "Tinsukia", "Udalguri", "West Karbi Anglong"],
+      "Bihar": ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai", "Bhagalpur", "Bhojpur", "Buxar", "Darbhanga", "East Champaran (Motihari)", "Gaya", "Gopalganj", "Jamui", "Jehanabad", "Kaimur (Bhabua)", "Katihar", "Khagaria", "Kishanganj", "Lakhisarai", "Madhepura", "Madhubani", "Munger (Monghyr)", "Muzaffarpur", "Nalanda", "Nawada", "Patna", "Purnia (Purnea)", "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura", "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali", "West Champaran"],
+      "Chandigarh": ["Chandigarh"],
+      "Chhattisgarh": ["Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara", "Bijapur", "Bilaspur", "Dantewada (South Bastar)", "Dhamtari", "Durg", "Gariyaband", "Janjgir-Champa", "Jashpur", "Kabirdham (Kawardha)", "Kanker (North Bastar)", "Kondagaon", "Korba", "Korea (Koriya)", "Mahasamund", "Mungeli", "Narayanpur", "Raigarh", "Raipur", "Rajnandgaon", "Sukma", "Surajpur", "Surguja"],
+      "Dadra and Nagar Haveli and Daman and Diu": ["Dadra and Nagar Haveli", "Daman", "Diu"],
+      "Delhi": ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi", "North West Delhi", "Shahdara", "South Delhi", "South East Delhi", "South West Delhi", "West Delhi"],
+      "Goa": ["North Goa", "South Goa"],
+      "Gujarat": ["Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha", "Bharuch", "Bhavnagar", "Botad", "Chhota Udepur", "Dahod", "Dangs", "Devbhoomi Dwarka", "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kachchh", "Kheda", "Mahisagar", "Mehsana", "Morbi", "Narmada", "Navsari", "Panchmahal", "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat", "Surendranagar", "Tapi", "Vadodara", "Valsad"],
+      "Haryana": ["Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad", "Gurugram", "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal", "Kurukshetra", "Mahendragarh", "Nuh", "Palwal", "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa", "Sonipat", "Yamunanagar"],
+      "Himachal Pradesh": ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur", "Kullu", "Lahaul & Spiti", "Mandi", "Shimla", "Sirmaur", "Solan", "Una"],
+      "Jammu and Kashmir": ["Anantnag", "Bandipore", "Baramulla", "Budgam", "Doda", "Ganderbal", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Poonch", "Pulwama", "Rajouri", "Ramban", "Reasi", "Samba", "Shopian", "Srinagar", "Udhampur"],
+      "Jharkhand": ["Bokaro", "Chatra", "Deoghar", "Dhanbad", "Dumka", "East Singhbhum", "Garhwa", "Giridih", "Godda", "Gumla", "Hazaribag", "Jamtara", "Khunti", "Koderma", "Latehar", "Lohardaga", "Pakur", "Palamu", "Ramgarh", "Ranchi", "Sahibganj", "Seraikela-Kharsawan", "Simdega", "West Singhbhum"],
+      "Karnataka": ["Bagalkot", "Ballari", "Belagavi", "Bengaluru Rural", "Bengaluru Urban", "Bidar", "Chamarajanagar", "Chikballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davangere", "Dharwad", "Gadag", "Hassan", "Haveri", "Kalaburagi", "Kodagu", "Kolar", "Koppal", "Mandya", "Mysuru", "Raichur", "Ramanagara", "Shivamogga", "Tumakuru", "Udupi", "Uttara Kannada", "Vijayapura", "Yadgir"],
+      "Kerala": ["Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"],
+      "Ladakh": ["Kargil", "Leh"],
+      "Lakshadweep": ["Lakshadweep"],
+      "Madhya Pradesh": ["Agar Malwa", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat", "Barwani", "Betul", "Bhind", "Bhopal", "Burhanpur", "Chhatarpur", "Chhindwara", "Damoh", "Datia", "Dewas", "Dhar", "Dindori", "Guna", "Gwalior", "Harda", "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni", "Khandwa", "Khargone", "Mandla", "Mandsaur", "Morena", "Narsinghpur", "Neemuch", "Panna", "Raisen", "Rajgarh", "Ratlam", "Rewa", "Sagar", "Satna", "Sehore", "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri", "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria", "Vidisha"],
+      "Maharashtra": ["Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban", "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"],
+      "Manipur": ["Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West", "Jiribam", "Kakching", "Kamjong", "Kangpokpi", "Noney", "Pherzawl", "Senapati", "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"],
+      "Meghalaya": ["East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", "Ri Bhoi", "South Garo Hills", "South West Garo Hills", "South West Khasi Hills", "West Garo Hills", "West Jaintia Hills", "West Khasi Hills"],
+      "Mizoram": ["Aizawl", "Champhai", "Kolasib", "Lawngtlai", "Lunglei", "Mamit", "Saiha", "Serchhip"],
+      "Nagaland": ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"],
+      "Odisha": ["Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", "Deogarh", "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghapur", "Jajpur", "Jharsuguda", "Kalahandi", "Kandhamal", "Kendrapara", "Kendujhar", "Khordha", "Koraput", "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada", "Puri", "Rayagada", "Sambalpur", "Sonepur", "Sundargarh"],
+      "Puducherry": ["Karaikal", "Mahe", "Pondicherry", "Yanam"],
+      "Punjab": ["Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib", "Fazilka", "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Kapurthala", "Ludhiana", "Mansa", "Moga", "Muktsar", "Nawanshahr", "Pathankot", "Patiala", "Rupnagar", "Sahibzada Ajit Singh Nagar", "Sangrur", "Tarn Taran"],
+      "Rajasthan": ["Ajmer", "Alwar", "Banswara", "Baran", "Barmer", "Bharatpur", "Bhilwara", "Bikaner", "Bundi", "Chittorgarh", "Churu", "Dausa", "Dholpur", "Dungarpur", "Hanumangarh", "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu", "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali", "Pratapgarh", "Rajsamand", "Sawai Madhopur", "Sikar", "Sirohi", "Sri Ganganagar", "Tonk", "Udaipur"],
+      "Sikkim": ["East Sikkim", "North Sikkim", "South Sikkim", "West Sikkim"],
+      "Tamil Nadu": ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Salem", "Sivaganga", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"],
+      "Telangana": ["Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", "Jayashankar Bhoopalpally", "Jogulamba Gadwal", "Kamareddy", "Karimnagar", "Khammam", "Komaram Bheem Asifabad", "Mahabubabad", "Mahabubnagar", "Mancherial", "Medak", "Medchal", "Nagarkurnool", "Nalgonda", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", "Rangareddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", "Warangal (Rural)", "Warangal (Urban)", "Yadadri Bhuvanagiri"],
+      "Tripura": ["Dhalai", "Gomati", "Khowai", "North Tripura", "Sepahijala", "South Tripura", "Unakoti", "West Tripura"],
+      "Uttarakhand": ["Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun", "Haridwar", "Nainital", "Pauri Garhwal", "Pithoragarh", "Rudraprayag", "Tehri Garhwal", "Udham Singh Nagar", "Uttarkashi"],
+      "Uttar Pradesh": ["Agra", "Aligarh", "Allahabad", "Ambedkar Nagar", "Amethi", "Amroha", "Auraiya", "Azamgarh", "Baghpat", "Bahraich", "Ballia", "Balrampur", "Banda", "Barabanki", "Bareilly", "Basti", "Bhadohi", "Bijnor", "Budaun", "Bulandshahr", "Chandauli", "Chitrakoot", "Deoria", "Etah", "Etawah", "Faizabad", "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddha Nagar", "Ghaziabad", "Ghazipur", "Gonda", "Gorakhpur", "Hamirpur", "Hapur", "Hardoi", "Hathras", "Jalaun", "Jaunpur", "Jhansi", "Kannauj", "Kanpur Dehat", "Kanpur Nagar", "Kasganj", "Kaushambi", "Kushinagar", "Lakhimpur Kheri", "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Mau", "Meerut", "Mirzapur", "Moradabad", "Muzaffarnagar", "Pilibhit", "Pratapgarh", "RaeBareli", "Rampur", "Saharanpur", "Sambhal", "Sant Kabir Nagar", "Shahjahanpur", "Shamli", "Shravasti", "Siddharth Nagar", "Sitapur", "Sonbhadra", "Sultanpur", "Unnao", "Varanasi"],
+      "West Bengal": ["Alipurduar", "Bankura", "Birbhum", "Burdwan", "Cooch Behar", "Dakshin Dinajpur", "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Kalimpong", "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", "Paschim Medinipur", "Purba Medinipur", "Purulia", "South 24 Parganas", "Uttar Dinajpur"]
+    };
+
     const DEFAULT_DB = [
       {
         id: "ATH001", name: "Priya Sharma", state: "Haryana", district: "Rohtak", sport: "Wrestling", ageCategory: "U-19", dob: "2006-03-15", gender: "Female", coachName: "Mahavir Singh", performanceScore: 94, verified: true, achievements: ["State Gold 2023", "National Bronze 2022"], profileImageInitials: "PS",
@@ -951,6 +1127,12 @@
 
       const formAthleteSelect = document.getElementById('record-athlete');
       formAthleteSelect.innerHTML = '<option value="">Select Athlete...</option>' + ATHLETE_DB.sort((a, b) => a.name.localeCompare(b.name)).map(a => `<option value="${a.id}">${a.name} (${a.sport})</option>`).join('');
+
+      const stateOptions = '<option value="">Select State...</option>' + Object.keys(STATE_DISTRICTS).sort().map(s => `<option value="${s}">${s}</option>`).join('');
+      const playerStateSelect = document.getElementById('player-state');
+      if (playerStateSelect) playerStateSelect.innerHTML = stateOptions;
+      const editStateSelect = document.getElementById('edit-state');
+      if (editStateSelect) editStateSelect.innerHTML = stateOptions;
     }
 
     // === RENDER FUNCTIONS ===
@@ -1251,6 +1433,71 @@
       lucide.createIcons({ root: viewContainer });
     }
 
+    function verifyAthlete(id) {
+      if (!isAdmin) return;
+      const a = ATHLETE_DB.find(x => x.id === id);
+      if (a) {
+        a.verified = true;
+        saveDB();
+        showToast(`Athlete ${a.name} verified successfully.`);
+        renderProfile(id);
+      }
+    }
+
+    function editAthlete(id) {
+      if (!isAdmin) return;
+      const a = ATHLETE_DB.find(x => x.id === id);
+      if (!a) return;
+
+      document.getElementById('edit-id').value = a.id;
+      document.getElementById('edit-name').value = a.name;
+
+      const sportSelect = document.getElementById('edit-sport');
+      const sportCustom = document.getElementById('edit-sport-custom');
+
+      let isStandardSport = false;
+      for (let i = 0; i < sportSelect.options.length; i++) {
+        if (sportSelect.options[i].value === a.sport && a.sport !== "Custom") {
+          isStandardSport = true;
+          break;
+        }
+      }
+
+      if (isStandardSport) {
+        sportSelect.value = a.sport;
+        sportCustom.classList.add('hidden');
+        sportCustom.removeAttribute('required');
+      } else {
+        sportSelect.value = 'Custom';
+        sportCustom.value = a.sport;
+        sportCustom.classList.remove('hidden');
+        sportCustom.setAttribute('required', 'true');
+      }
+
+      document.getElementById('edit-state').value = a.state;
+
+      const districtSelect = document.getElementById('edit-district');
+      if (a.state && STATE_DISTRICTS[a.state]) {
+        districtSelect.innerHTML = '<option value="">Select District...</option>' + STATE_DISTRICTS[a.state].sort().map(d => `<option value="${d}">${d}</option>`).join('');
+        districtSelect.disabled = false;
+        districtSelect.value = a.district;
+      }
+
+      document.getElementById('edit-age').value = a.ageCategory;
+      document.getElementById('edit-gender').value = a.gender;
+      document.getElementById('edit-coach').value = a.coachName;
+      document.getElementById('edit-verified').checked = a.verified;
+
+      const modal = document.getElementById('edit-modal');
+      const content = document.getElementById('edit-content');
+      const backdrop = document.getElementById('edit-backdrop');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        content.classList.remove('scale-95', 'opacity-0');
+        backdrop.classList.remove('opacity-0');
+      }, 10);
+    }
+
     function renderProfile(id) {
       const a = ATHLETE_DB.find(x => x.id === id);
       if (!a) {
@@ -1315,10 +1562,17 @@
               </p>
 
               <div class="flex flex-wrap justify-center gap-2 mb-8">
-                ${a.verified ? '<span class="px-2.5 py-1 bg-green-dim text-green border border-green/20 rounded-full text-xs font-medium flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Verified</span>' : ''}
+                ${a.verified ? '<span class="px-2.5 py-1 bg-green-dim text-green border border-green/20 rounded-full text-xs font-medium flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Verified</span>' : '<span class="px-2.5 py-1 bg-yellow-dim text-yellow border border-yellow/20 rounded-full text-xs font-medium flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> Pending</span>'}
                 <span class="px-2.5 py-1 bg-surface-2 border border-divider rounded-full text-xs font-medium text-text">${a.ageCategory}</span>
                 <span class="px-2.5 py-1 bg-surface-2 border border-divider rounded-full text-xs font-medium text-text">${a.gender}</span>
               </div>
+
+              ${isAdmin ? `
+              <div class="flex flex-wrap justify-center gap-2 mb-8 w-full border-t border-divider pt-4">
+                ${!a.verified ? `<button onclick="verifyAthlete('${a.id}')" class="flex-1 bg-green text-black hover:bg-green/90 py-1.5 rounded-md text-sm font-medium transition-colors">Verify Athlete</button>` : ''}
+                <button onclick="editAthlete('${a.id}')" class="flex-1 bg-surface-2 hover:bg-surface-3 border border-border text-text py-1.5 rounded-md text-sm font-medium transition-colors">Edit Profile</button>
+              </div>
+              ` : ''}
 
               <div class="w-full pt-6 border-t border-divider mb-6">
                 ${gaugeHtml}
@@ -1698,16 +1952,42 @@
       document.getElementById('cancel-player-modal').addEventListener('click', () => togglePlayerModal(false));
       playerBackdrop.addEventListener('click', () => togglePlayerModal(false));
 
+      document.getElementById('player-sport').addEventListener('change', (e) => {
+        const customInput = document.getElementById('player-sport-custom');
+        if (e.target.value === 'Custom') {
+          customInput.classList.remove('hidden');
+          customInput.setAttribute('required', 'true');
+        } else {
+          customInput.classList.add('hidden');
+          customInput.removeAttribute('required');
+        }
+      });
+
+      document.getElementById('player-state').addEventListener('change', (e) => {
+        const districtSelect = document.getElementById('player-district');
+        const state = e.target.value;
+        if (state && STATE_DISTRICTS[state]) {
+          districtSelect.innerHTML = '<option value="">Select District...</option>' + STATE_DISTRICTS[state].sort().map(d => `<option value="${d}">${d}</option>`).join('');
+          districtSelect.disabled = false;
+        } else {
+          districtSelect.innerHTML = '<option value="">Select State First...</option>';
+          districtSelect.disabled = true;
+        }
+      });
+
       document.getElementById('player-form').addEventListener('submit', (e) => {
         e.preventDefault();
         const newId = 'ATH' + Math.floor(Math.random() * 900 + 100);
         const name = document.getElementById('player-name').value;
         let initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
+        let sport = document.getElementById('player-sport').value;
+        if (sport === 'Custom') sport = document.getElementById('player-sport-custom').value;
+
         const newAthlete = {
           id: newId,
           name: name,
-          sport: document.getElementById('player-sport').value,
+          sport: sport,
           state: document.getElementById('player-state').value,
           district: document.getElementById('player-district').value,
           ageCategory: document.getElementById('player-age').value,
@@ -1729,6 +2009,95 @@
         if (currentView === 'dashboard') renderDashboard();
         if (currentView === 'search') renderSearch();
         if (currentView === 'rankings') renderRankings();
+      });
+
+      // Edit Modal Logic
+      const editModal = document.getElementById('edit-modal');
+      const editContent = document.getElementById('edit-content');
+      const editBackdrop = document.getElementById('edit-backdrop');
+
+      const toggleEditModal = (show) => {
+        if (show) {
+          editModal.classList.remove('hidden');
+          setTimeout(() => {
+            editContent.classList.remove('scale-95', 'opacity-0');
+            editBackdrop.classList.remove('opacity-0');
+          }, 10);
+        } else {
+          editContent.classList.add('scale-95', 'opacity-0');
+          editBackdrop.classList.add('opacity-0');
+          setTimeout(() => editModal.classList.add('hidden'), 150);
+        }
+      };
+
+      document.getElementById('close-edit-modal').addEventListener('click', () => toggleEditModal(false));
+      document.getElementById('cancel-edit-modal').addEventListener('click', () => toggleEditModal(false));
+      editBackdrop.addEventListener('click', () => toggleEditModal(false));
+
+      document.getElementById('edit-sport').addEventListener('change', (e) => {
+        const customInput = document.getElementById('edit-sport-custom');
+        if (e.target.value === 'Custom') {
+          customInput.classList.remove('hidden');
+          customInput.setAttribute('required', 'true');
+        } else {
+          customInput.classList.add('hidden');
+          customInput.removeAttribute('required');
+        }
+      });
+
+      document.getElementById('edit-state').addEventListener('change', (e) => {
+        const districtSelect = document.getElementById('edit-district');
+        const state = e.target.value;
+        if (state && STATE_DISTRICTS[state]) {
+          districtSelect.innerHTML = '<option value="">Select District...</option>' + STATE_DISTRICTS[state].sort().map(d => `<option value="${d}">${d}</option>`).join('');
+          districtSelect.disabled = false;
+        } else {
+          districtSelect.innerHTML = '<option value="">Select State First...</option>';
+          districtSelect.disabled = true;
+        }
+      });
+
+      document.getElementById('edit-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('edit-id').value;
+        const a = ATHLETE_DB.find(x => x.id === id);
+        if (!a) return;
+
+        a.name = document.getElementById('edit-name').value;
+
+        let sport = document.getElementById('edit-sport').value;
+        if (sport === 'Custom') sport = document.getElementById('edit-sport-custom').value;
+        a.sport = sport;
+
+        a.state = document.getElementById('edit-state').value;
+        a.district = document.getElementById('edit-district').value;
+        a.ageCategory = document.getElementById('edit-age').value;
+        a.gender = document.getElementById('edit-gender').value;
+        a.coachName = document.getElementById('edit-coach').value || 'Unknown';
+        a.verified = document.getElementById('edit-verified').checked;
+
+        a.profileImageInitials = a.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+        saveDB();
+        toggleEditModal(false);
+        showToast(`Athlete profile updated!`);
+        populateFilterDropdowns();
+        renderProfile(id);
+      });
+
+      document.getElementById('btn-delete-athlete').addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete this athlete? This action cannot be undone.')) {
+          const id = document.getElementById('edit-id').value;
+          const index = ATHLETE_DB.findIndex(x => x.id === id);
+          if (index !== -1) {
+            ATHLETE_DB.splice(index, 1);
+            saveDB();
+            toggleEditModal(false);
+            showToast('Athlete deleted successfully');
+            populateFilterDropdowns();
+            location.hash = '#dashboard';
+          }
+        }
       });
 
       // Form Submit
